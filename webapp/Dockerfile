@@ -1,4 +1,4 @@
-# ---------- Build Stage ----------
+# ---- Build stage ----
 FROM node:18-alpine AS build
 
 WORKDIR /app
@@ -9,10 +9,8 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# ---------- Production Stage ----------
+# ---- Production stage ----
 FROM nginx:alpine
-
-RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=build /app/build /usr/share/nginx/html
 
